@@ -43,6 +43,32 @@ const WhatsAppButton = styled.a`
   }
 `;
 
+
+const LocalButton = styled.a`
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #3498db;
+  padding: 10px 18px;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: bold;
+  text-decoration: none;
+  transition: 0.3s;
+
+  &:hover {
+    background: #2980b9;
+    transform: translateY(-2px);
+  }
+
+  img {
+    width: 20px;
+    height: 20px;
+  }
+`;
+
+
+
 const Avatar = styled.div<{ gender: "male" | "female" }>`
   width: 90px;
   height: 90px;
@@ -106,6 +132,13 @@ export default function ProfessionalCard({ professional }: Props) {
         <img src="/comercios/whatsapp.svg" alt="WhatsApp" />
         Chamar no WhatsApp
       </WhatsAppButton>
+
+
+      <LocalButton href={professional.localizacao} target="_blank">
+        <img src="/icons/location.svg" alt="Localização" />
+        Ver localização
+      </LocalButton>
+
     </Card>
   );
 }
