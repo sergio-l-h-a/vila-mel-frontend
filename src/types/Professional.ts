@@ -6,3 +6,5 @@ export interface Professional {
   "gender": "male" | "female";
   image?: string;
 }
+
+
