@@ -6,7 +6,7 @@ export default function ProfessionalsPage() {
   const [professionals, setProfessionals] = useState<Professional[]>([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/professionals")
+    fetch("https://vila-mel-backend.onrender.com/professionals")
       .then((res) => res.json())
       .then((data) => setProfessionals(data));
   }, []);
