@@ -135,7 +135,7 @@ export default function ProfessionalCard({ professional }: Props) {
 
 
       <LocalButton href={professional.localizacao} target="_blank">
-        <img src="/icons/location.svg" alt="Localização" />
+        <img src="/imagens/whatsapp.svg" alt="Localização" />
         Ver localização
       </LocalButton>
 
