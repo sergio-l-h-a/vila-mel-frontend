@@ -69,12 +69,10 @@ const professionImages: Record<string, string[]> = {
   Mecânico: ["/imagens/mecanico.png","/imagens/horlaneide.png"],
   
   Barbeiro: ["/imagens/barbeiro.png"],
-  Soldador: ["/imagens/soldador.png"],
+  Soldador: ["/imagens/soldador.png","/imagens/em-breve.png"],
   Confeiteira: ["/imagens/confeiteira.png"],
   Artesão: ["/imagens/artesao-couro.png"],
 
-  // ⭐ Categoria sem profissionais ainda
-  EmBreve: ["/imagens/em-breve.png"]
 };
 
 
