@@ -67,6 +67,7 @@ const professionImages: Record<string, string> = {
   Eletricista: "/imagens/eletricista.png",
   "Salão de Beleza": "/imagens/salao-beleza.png",
   Mecânico: "/imagens/mecanico.png",
+  Mecanico: "/imagens/orlaneide.png",
   Barbeiro: "/imagens/barbeiro.png",
   Soldador: "/imagens/soldador.png",
   Confeiteira: "/imagens/confeiteira.png",
