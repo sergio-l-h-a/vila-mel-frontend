@@ -88,7 +88,7 @@ export default function ProfessionalCard({ professional }: Props) {
   professional.image
     ? `${backendUrl}/uploads/${professional.image}`
     : professionImages[professional.profession]?.[0] ||
-      "/imagens/default.png";
+      `${backendUrl}/uploads/${professional.image}`;
 
 
   return (
