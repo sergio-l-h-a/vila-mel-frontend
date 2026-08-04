@@ -43,37 +43,35 @@ const WhatsAppButton = styled.a`
   }
 `;
 
+const Avatar = styled.div<{ gender: "male" | "female" }>`
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: ${({ gender }) =>
+    gender === "male" ? "#4092f0" : "#ec779e"};
+  margin: 0 auto 12px auto;  
+`;
 
-// const Avatar = styled.div<{ gender: "male" | "female" }>`
-//   width: 90px;
-//   height: 90px;
-//   border-radius: 50%;
-//   background: ${({ gender }) =>
-//     gender === "male" ? "#4092f0" : "#ec779e"};
-//   margin: 0 auto 12px auto;  
-// `;
-
-// const AvatarImage = styled.img`
-//   width: 100%;
-//   height: 100%;
-//   object-fit: cover;
-//   border-radius: 50%;
-// `;
-
-
-// const professionImages: Record<string, string> = {
-//   Pedreiro: "/imagens/pedreiro.png",
-//   Manicure: "/imagens/manicure.png",
-//   Eletricista: "/imagens/eletricista.png",
-//   Salão: "/imagens/salao-beleza.png",
-//   Mecânico: "/imagens/mecanico.png",
-//   Barbeiro: "/imagens/barbeiro.png",
-//   Soldador: "/imagens/soldador.png",
-//   Confeiteira: "/imagens/confeiteira.png",
-//   Artesão: "/imagens/artesao-couro.png"
-// };
+const AvatarImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+`;
 
 
+// 🔥 Agora com o nome correto da profissão do banco
+const professionImages: Record<string, string> = {
+  Pedreiro: "/imagens/pedreiro.png",
+  Manicure: "/imagens/manicure.png",
+  Eletricista: "/imagens/eletricista.png",
+  "Salão de Beleza": "/imagens/salao-beleza.png",
+  Mecânico: "/imagens/mecanico.png",
+  Barbeiro: "/imagens/barbeiro.png",
+  Soldador: "/imagens/soldador.png",
+  Confeiteira: "/imagens/confeiteira.png",
+  Artesão: "/imagens/artesao-couro.png"
+};
 
 
 interface Props {
@@ -81,36 +79,31 @@ interface Props {
 }
 
 export default function ProfessionalCard({ professional }: Props) {
+
+  const imageSrc =
+    professional.image ||
+    professionImages[professional.profession] ||
+    "/imagens/default.png";
+
   return (
-    <section>
-      <h1>Profissionais da Vila Mel</h1>
+    <Card>
+      <Avatar gender={professional.gender}>
+        <AvatarImage
+          src={imageSrc}
+          alt={professional.name}
+        />
+      </Avatar>
 
+      <Name>{professional.name}</Name>
+      <Profession>{professional.profession}</Profession>
 
-        {professional.map((professional: Professional) => (
-          <ProfessionalCard
-            key={professional.id}
-            professional={professional}
-          />
-        ))}
-  
-
-      <Card>
-
-        <Name>{professional.name}</Name>
-        <Profession>{professional.profession}</Profession>
-
-        <WhatsAppButton
-          href={`https://wa.me/55${professional.phone}`}
-          target="_blank"
-        >
-          <img src="/comercios/whatsapp.svg" alt="WhatsApp" />
-          Chamar no WhatsApp
-        </WhatsAppButton>
-
-      </Card>
-
-
-    </section>
-
+      <WhatsAppButton
+        href={`https://wa.me/55${professional.phone}`}
+        target="_blank"
+      >
+        <img src="/comercios/whatsapp.svg" alt="WhatsApp" />
+        Chamar no WhatsApp
+      </WhatsAppButton>
+    </Card>
   );
 }

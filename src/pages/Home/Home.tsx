@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { api } from "../../services/api";
 import type { Professional } from "../../types/Professional";
 import ProfessionalCard from "../../components/ProfessionalCard/ProfessionalCard";
-import Comercios from "../../components/Comercios";
+import Comercios from "../../components/Comercios/Comercios";
 import styled from "styled-components";
 
 const Container = styled.div`
