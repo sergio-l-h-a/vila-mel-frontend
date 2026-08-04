@@ -66,7 +66,7 @@ export default function Cadastrar() {
   };
 
   const handleImageChange = (e: any) => {
-    setImageFile(e.target.file[0]);
+    setImageFile(e.target.files[0]);
   };
 
   const handleSubmit = async (e: any) => {
