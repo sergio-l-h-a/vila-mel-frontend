@@ -56,21 +56,42 @@ export default function Cadastrar() {
     name: "",
     profession: "",
     phone: "",
-    image: "",
     gender: "male"
   });
+
+  const [imageFile, setImageFile] = useState<File | null>(null);
 
   const handleChange = (e: any) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  const handleImageChange = (e: any) => {
+    setImageFile(e.target.file[0]);
+  };
+
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
+    const data = new FormData();
+    data.append("name", form.name);
+    data.append("profession", form.profession);
+    data.append("phone", form.phone);
+    data.append("gender", form.gender);
+
+    if (imageFile) {
+      data.append("image", imageFile);
+    }
+
     try {
-      await api.post("/professionals", form);
+      await api.post("/professionals", data, {
+        headers: { "Content-Type": "multipart/form-data" }
+      });
+
       alert("Profissional cadastrado com sucesso!");
-      setForm({ name: "", profession: "", phone: "", image: "", gender: "male" });
+
+      setForm({ name: "", profession: "", phone: "", gender: "male" });
+      setImageFile(null);
+
     } catch (error) {
       alert("Erro ao cadastrar profissional.");
     }
@@ -105,11 +126,12 @@ export default function Cadastrar() {
           required
         />
 
+        {/* Novo campo de upload */}
         <Input
+          type="file"
           name="image"
-          placeholder="Nome da imagem (ex: rogerio.png)"
-          value={form.image}
-          onChange={handleChange}
+          accept="image/*"
+          onChange={handleImageChange}
         />
 
         <Select name="gender" value={form.gender} onChange={handleChange}>
