@@ -61,17 +61,17 @@ const AvatarImage = styled.img`
 
 
 // 🔥 Agora com o nome correto da profissão do banco
-const professionImages: Record<string, string> = {
-  Pedreiro: "/imagens/pedreiro.png",
-  Manicure: "/imagens/manicure.png",
-  Eletricista: "/imagens/eletricista.png",
-  "Salão de Beleza": "/imagens/salao-beleza.png",
-  Mecânico: "/imagens/mecanico.png",
-  Mecanico: "/imagens/horlaneide.png",
-  Barbeiro: "/imagens/barbeiro.png",
-  Soldador: "/imagens/soldador.png",
-  Confeiteira: "/imagens/confeiteira.png",
-  Artesão: "/imagens/artesao-couro.png"
+const professionImages: Record<string, string[]> = {
+  Pedreiro: ["/imagens/pedreiro.png"],
+  Manicure: ["/imagens/manicure.png"],
+  Eletricista: ["/imagens/eletricista.png"],
+  "Salão de Beleza": ["/imagens/salao-beleza.png"],
+  Mecânico: ["/imagens/mecanico.png","/imagens/horlaneide.png"],
+  
+  Barbeiro: ["/imagens/barbeiro.png"],
+  Soldador: ["/imagens/soldador.png"],
+  Confeiteira: ["/imagens/confeiteira.png"],
+  Artesão: ["/imagens/artesao-couro.png"]
 };
 
 
@@ -82,9 +82,11 @@ interface Props {
 export default function ProfessionalCard({ professional }: Props) {
 
   const imageSrc =
-    professional.image ||
-    professionImages[professional.profession] ||
-    "/imagens/default.png";
+  professional.image
+    ? `/imagens/${professional.image}`
+    : professionImages[professional.profession]?.[0] ||
+      "/imagens/default.png";
+
 
   return (
     <Card>
