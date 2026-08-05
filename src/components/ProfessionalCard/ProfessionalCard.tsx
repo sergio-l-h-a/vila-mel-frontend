@@ -84,11 +84,11 @@ export default function ProfessionalCard({ professional }: Props) {
 
   const backendUrl = "https://vila-mel-backend.onrender.com"
 
-  const imageSrc =
+   const imageSrc =
   professional.image
     ? `${backendUrl}/uploads/${professional.image}`
     : professionImages[professional.profession]?.[0] ||
-      `${backendUrl}/uploads/${professional.image}`;
+      "/imagens/default.png";
 
 
   return (
