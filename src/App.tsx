@@ -21,7 +21,7 @@ export default function App() {
         <Route path="/contato" element={<Contato />} />
         <Route path="/cadastrar" element={<Cadastrar />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/admin" element={<AdminLogin />} />
       </Routes>
       <Footer />
     </BrowserRouter>
