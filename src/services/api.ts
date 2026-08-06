@@ -19,7 +19,7 @@ export const loginProfessional = async (key: string) => {
 };
 
 export const loginAdmin = async (key: string) => {
-  return api.post("/admin/admin", { key });
+  return api.post("/admin/login", { key });
 };
 
 

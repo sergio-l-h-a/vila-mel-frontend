@@ -57,7 +57,7 @@ export default function Admin() {
   useEffect(() => {
     if (!admin) return;
 
-    api.get("/admin", {
+    api.get("/admin/professionals", {
       headers: { Authorization: "superadmin123" }
     }).then(res => {
       setProfessionals(res.data);
