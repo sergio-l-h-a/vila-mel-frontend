@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { api, loginAdmin } from "../../services/api";
+import { loginAdmin } from "../../services/api";
 import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
