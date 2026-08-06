@@ -84,7 +84,8 @@ export default function Header() {
         <NavLink to="/">Home</NavLink>
         <NavLink to="/sobre">Sobre</NavLink>
         <NavLink to="/contato">Contato</NavLink>
-
+        <NavLink to="/usuario">Área do Usuário</NavLink>
+        
         <ActionButton to="/cadastrar">
           <FiPlusCircle size={18} />
           Cadastrar
