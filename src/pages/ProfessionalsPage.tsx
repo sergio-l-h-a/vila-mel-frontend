@@ -6,9 +6,10 @@ export default function ProfessionalsPage() {
   const [professionals, setProfessionals] = useState<Professional[]>([]);
 
   useEffect(() => {
-    fetch("https://vila-mel-backend.onrender.com/professionals/")
-      .then((res) => res.json())
-      .then((data) => setProfessionals(data));
+    fetch("https://vila-mel-backend.onrender.com/professionals")
+    .then((res) => res.json())
+    .then((data) => setProfessionals(data));
+
   }, []);
 
   return (
