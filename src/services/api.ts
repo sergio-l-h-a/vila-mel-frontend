@@ -10,13 +10,14 @@ export const getProfessionalsAdmin = async () => {
   });
 };
 
+export const loginProfessional = async (key: string) => {
+  return api.post("/professionals/login", { key });
+};
+
 export const registerProfessional = async (formData: FormData) => {
   return api.post("/professionals", formData);
 };
 
-export const loginProfessional = async (key: string) => {
-  return api.post("/professionals/login", { key });
-};
 
 export const loginAdmin = async (key: string) => {
   return api.post("/admin/login", { key });

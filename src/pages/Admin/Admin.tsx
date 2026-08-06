@@ -51,21 +51,33 @@ const DeleteButton = styled.button`
 
 export default function Admin() {
   const [professionals, setProfessionals] = useState<Professional[]>([]);
+  const [admin, setAdmin] = useState<string | null>(null);
 
-  const admin = localStorage.getItem("admin");
+  // Atualiza admin quando a página carrega
+  useEffect(() => {
+    const storedAdmin = localStorage.getItem("admin");
+    setAdmin(storedAdmin);
+  }, []);
 
+  // Carrega profissionais quando admin existir
   useEffect(() => {
     if (!admin) return;
 
-    api.get("/professionals", {
+    api.get("/admin/professionals", {
       headers: { Authorization: "superadmin123" }
-    }).then(res => {
-      setProfessionals(res.data);
-    });
-  }, []);
+    })
+      .then(res => setProfessionals(res.data))
+      .catch(() => {
+        console.error("Erro ao carregar profissionais.");
+      });
+  }, [admin]);
 
   if (!admin) {
-    return <p style={{ color: "red" }}>Acesso negado. Faça login como administrador.</p>;
+    return (
+      <p style={{ color: "red", textAlign: "center", marginTop: "40px" }}>
+        Acesso negado. Faça login como administrador.
+      </p>
+    );
   }
 
   return (
@@ -73,6 +85,10 @@ export default function Admin() {
       <Title>Painel do Administrador</Title>
 
       <h2>Profissionais cadastrados</h2>
+
+      {professionals.length === 0 && (
+        <p>Nenhum profissional encontrado.</p>
+      )}
 
       {professionals.map(p => (
         <Card key={p.id}>

@@ -4,7 +4,6 @@ import Sobre from "./pages/Sobre/Sobre";
 import Contato from "./pages/Contato/Contato";
 import Cadastrar from "./pages/Cadastrar/Cadastrar";
 import Login from "./pages/Login/Login";
-import AdminLogin from "./pages/AdminLogin/AdminLogin";
 import Admin from "./pages/Admin/Admin";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
@@ -22,7 +21,6 @@ export default function App() {
         <Route path="/contato" element={<Contato />} />
         <Route path="/cadastrar" element={<Cadastrar />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin" element={<Admin />} />
       </Routes>
       <Footer />
