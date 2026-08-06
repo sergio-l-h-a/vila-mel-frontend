@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { api } from "../../services/api";
+import { api, loginAdmin } from "../../services/api";
 import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
@@ -53,7 +53,7 @@ export default function AdminLogin() {
     e.preventDefault();
 
     try {
-      const res = await api.post("/admin/login", { key });
+      const res = await loginAdmin(key);
 
       if (res.data.authorized) {
         alert("Administrador autenticado!");

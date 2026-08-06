@@ -18,6 +18,11 @@ export const loginProfessional = async (key: string) => {
   return api.post("/professionals/login", { key });
 };
 
+export const loginAdmin = async (key: string) => {
+  return api.post("/admin/login", { key });
+};
+
+
 export const updateOwnProfile = async (data: any) => {
   return api.put("/professionals/update", data);
 };
