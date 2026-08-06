@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { api } from "../../services/api";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   max-width: 600px;
@@ -52,11 +53,14 @@ const Button = styled.button`
 `;
 
 export default function Cadastrar() {
+  const navigate = useNavigate();
+
   const [form, setForm] = useState({
     name: "",
     profession: "",
     phone: "",
-    gender: "male"
+    gender: "Masculino",
+    key: ""
   });
 
   const [imageFile, setImageFile] = useState<File | null>(null);
@@ -69,7 +73,6 @@ export default function Cadastrar() {
     setImageFile(e.target.files[0]);
   };
 
-
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
@@ -78,6 +81,7 @@ export default function Cadastrar() {
     data.append("profession", form.profession);
     data.append("phone", form.phone);
     data.append("gender", form.gender);
+    data.append("key", form.key);
 
     if (imageFile) {
       data.append("image", imageFile);
@@ -88,10 +92,20 @@ export default function Cadastrar() {
         headers: { "Content-Type": "multipart/form-data" }
       });
 
-      alert("Profissional cadastrado com sucesso!");
+      alert("Cadastro realizado! Agora faça login com sua chave.");
 
-      setForm({ name: "", profession: "", phone: "", gender: "male" });
+      // Limpar formulário
+      setForm({
+        name: "",
+        profession: "",
+        phone: "",
+        gender: "Masculino",
+        key: ""
+      });
       setImageFile(null);
+
+      // Redirecionar para login
+      navigate("/login");
 
     } catch (error) {
       alert("Erro ao cadastrar profissional.");
@@ -127,7 +141,6 @@ export default function Cadastrar() {
           required
         />
 
-        {/* Novo campo de upload */}
         <Input
           type="file"
           name="image"
@@ -136,9 +149,18 @@ export default function Cadastrar() {
         />
 
         <Select name="gender" value={form.gender} onChange={handleChange}>
-          <option value="male">Masculino</option>
-          <option value="female">Feminino</option>
+          <option value="Masculino">Masculino</option>
+          <option value="Feminino">Feminino</option>
         </Select>
+
+        {/* Campo novo: key */}
+        <Input
+          name="key"
+          placeholder="Crie sua chave de acesso"
+          value={form.key}
+          onChange={handleChange}
+          required
+        />
 
         <Button type="submit">Cadastrar</Button>
       </Form>
