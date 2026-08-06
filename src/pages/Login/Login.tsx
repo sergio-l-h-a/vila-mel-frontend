@@ -52,23 +52,39 @@ export default function Login() {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
+    let res;
+
     try {
-      const res = await api.post("/professionals/login", { key });
+    // tentar login como profissional
+    res = await api.post("/professionals/login", { key });
 
-      if (res.data.authorized) {
-        alert("Login realizado com sucesso!");
-
-        // salvar usuário no localStorage
+    if (res.data.authorized) {
         localStorage.setItem("loggedUser", JSON.stringify(res.data.professional));
-
-        // redirecionar para área do usuário
+        alert("Login realizado com sucesso!");
         navigate("/usuario");
-      } else {
-        alert("Chave inválida.");
-      }
-    } catch (error) {
-      alert("Erro ao fazer login.");
+        return;
     }
+    } catch (e) {
+    // ignorar erro, tentar admin
+    }
+
+    try {
+    // tentar login como administrador
+    res = await api.post("/admin/login", { key });
+
+    if (res.data.authorized) {
+        alert("Administrador autenticado!");
+        localStorage.setItem("admin", JSON.stringify({ key }));
+        navigate("/admin");
+        return;
+    }
+    } catch (e) {
+    // ignorar erro
+    }
+
+    alert("Chave inválida.");
+
+
   };
 
   return (
