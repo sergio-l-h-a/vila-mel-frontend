@@ -88,28 +88,26 @@ export default function Cadastrar() {
     }
 
     try {
-      await api.post("/professionals", data, {
-        headers: { "Content-Type": "multipart/form-data" }
-      });
+        await api.post("/professionals", data); // sem headers
 
-      alert("Cadastro realizado! Agora faça login com sua chave.");
+        alert("Cadastro realizado! Agora faça login com sua chave.");
 
-      // Limpar formulário
-      setForm({
-        name: "",
-        profession: "",
-        phone: "",
-        gender: "Masculino",
-        key: ""
-      });
-      setImageFile(null);
+        setForm({
+          name: "",
+          profession: "",
+          phone: "",
+          gender: "Masculino",
+          key: ""
+        });
 
-      // Redirecionar para login
-      navigate("/login");
+        setImageFile(null);
 
-    } catch (error) {
-      alert("Erro ao cadastrar profissional.");
-    }
+        navigate("/login");
+
+      } catch (error) {
+        alert("Erro ao cadastrar profissional.");
+      }
+
   };
 
   return (
