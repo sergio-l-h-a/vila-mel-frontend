@@ -157,7 +157,7 @@ export default function Cadastrar() {
           placeholder="Crie sua chave de acesso"
           value={form.key}
           onChange={handleChange}
-          required
+          
         />
 
         <Button type="submit">Cadastrar</Button>
