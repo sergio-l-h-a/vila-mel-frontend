@@ -86,9 +86,9 @@ export default function Admin() {
 
       <h2>Profissionais cadastrados</h2>
 
-      {professionals.length === 0 && (
+      {/* {professionals.length === 0 && (
         <p>Nenhum profissional encontrado.</p>
-      )}
+      )} */}
 
       {professionals.map(p => (
         <Card key={p.id}>
