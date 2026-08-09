@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { api } from "../../services/api";
 import type { Professional } from "../../types/Professional";
 
+
 const Container = styled.div`
   max-width: 900px;
   margin: 0 auto;
@@ -88,9 +89,9 @@ export default function Admin() {
       <h2>Profissionais cadastrados</h2>
 
 
-      {professionals.length === 0 && (
+      {/* {professionals.length === 0 && (
         <p>Nenhum profissional encontrado.</p>
-      )}
+      )} */}
 
       {professionals.map(p => (
         <Card key={p.id}>
