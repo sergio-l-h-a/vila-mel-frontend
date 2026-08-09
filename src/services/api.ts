@@ -5,7 +5,7 @@ export const api = axios.create({
 });
 
 export const getProfessionalsAdmin = async () => {
-  return api.get("/admin/professionals", {
+  return api.get("/admin/professional", {
     headers: { Authorization: "superadmin123" }
   });
 };
@@ -15,7 +15,7 @@ export const loginProfessional = async (key: string) => {
 };
 
 export const registerProfessional = async (formData: FormData) => {
-  return api.post("/professionals", formData);
+  return api.post("/professional", formData);
 };
 
 
