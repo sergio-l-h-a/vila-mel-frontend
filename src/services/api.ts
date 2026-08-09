@@ -15,7 +15,7 @@ export const loginProfessional = async (key: string) => {
 };
 
 export const registerProfessional = async (formData: FormData) => {
-  return api.post("/professional", formData);
+  return api.post("/professionals", formData);
 };
 
 
