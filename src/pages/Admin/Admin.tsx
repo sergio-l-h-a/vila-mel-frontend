@@ -15,40 +15,40 @@ const Title = styled.h1`
   margin-bottom: 20px;
 `;
 
-const Card = styled.div`
-  background: #fff;
-  padding: 15px;
-  border-radius: 10px;
-  margin-bottom: 15px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-`;
+// const Card = styled.div`
+//   background: #fff;
+//   padding: 15px;
+//   border-radius: 10px;
+//   margin-bottom: 15px;
+//   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+// `;
 
-const Button = styled.button`
-  padding: 10px;
-  margin-right: 10px;
-  background: #0984e3;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
+// const Button = styled.button`
+//   padding: 10px;
+//   margin-right: 10px;
+//   background: #0984e3;
+//   color: #fff;
+//   border: none;
+//   border-radius: 6px;
+//   cursor: pointer;
 
-  &:hover {
-    background: #74b9ff;
-  }
-`;
+//   &:hover {
+//     background: #74b9ff;
+//   }
+// `;
 
-const DeleteButton = styled.button`
-  padding: 10px;
-  background: #d63031;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
+// const DeleteButton = styled.button`
+//   padding: 10px;
+//   background: #d63031;
+//   color: #fff;
+//   border: none;
+//   border-radius: 6px;
+//   cursor: pointer;
 
-  &:hover {
-    background: #e17055;
-  }
-`;
+//   &:hover {
+//     background: #e17055;
+//   }
+// `;
 
 export default function Admin() {
   const [professionals, setProfessionals] = useState<Professional[]>([]);
@@ -93,21 +93,7 @@ export default function Admin() {
 
       <ProfessionalsPage />
 
-      {professionals.map(p => (
-        <Card key={p.id}>
-          <h3>{p.name}</h3>
-          <p>Profissão: {p.profession}</p>
-          <p>Telefone: {p.phone}</p>
-
-          <Button onClick={() => alert("Editar ainda não implementado")}>
-            Editar
-          </Button>
-
-          <DeleteButton onClick={() => alert("Excluir ainda não implementado")}>
-            Excluir
-          </DeleteButton>
-        </Card>
-      ))}
+      
     </Container>
   );
 }
