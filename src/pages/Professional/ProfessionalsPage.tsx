@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import ProfessionalCard from "../components/ProfessionalCard/ProfessionalCard";
-import type { Professional } from "../types/Professional";
+import ProfessionalCard from "../../components/ProfessionalCard/ProfessionalCard";
+import type { Professional } from "../../types/Professional";
+
 
 export default function ProfessionalsPage() {
   const [professionals, setProfessionals] = useState<Professional[]>([]);

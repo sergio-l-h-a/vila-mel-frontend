@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { api } from "../../services/api";
 import type { Professional } from "../../types/Professional";
+import ProfessionalsPage from "../Professional/ProfessionalsPage";
 
 const Container = styled.div`
   max-width: 900px;
@@ -86,9 +87,11 @@ export default function Admin() {
 
       <h2>Profissionais cadastrados</h2>
 
-      {/* {professionals.length === 0 && (
+      {professionals.length === 0 && (
         <p>Nenhum profissional encontrado.</p>
-      )} */}
+      )}
+
+      <ProfessionalsPage />
 
       {professionals.map(p => (
         <Card key={p.id}>
