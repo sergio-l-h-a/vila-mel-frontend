@@ -72,14 +72,14 @@ export default function Header() {
 
         {!loggedUser && <Link to="/login">Login</Link>}
         {loggedUser && <Link to="/usuario">Área do Usuário</Link>}
+        {loggedUser && (
+          <UserInfo>
+            Olá, {loggedUser.name}!
+            <LogoutButton onClick={logout}>Sair</LogoutButton>
+          </UserInfo>
+        )}
       </Menu>
 
-      {loggedUser && (
-        <UserInfo>
-          Olá, {loggedUser.name}!
-          <LogoutButton onClick={logout}>Sair</LogoutButton>
-        </UserInfo>
-      )}
     </Nav>
   );
 }
