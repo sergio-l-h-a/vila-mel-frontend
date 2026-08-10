@@ -1,5 +1,7 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import type { Professional } from "../../types/Professional";
+import { updateOwnProfile, updatePhoto } from "../../services/api";
 
 const Card = styled.div`
   padding: 20px;
@@ -50,29 +52,77 @@ const AvatarImage = styled.img`
   border-radius: 50%;
 `;
 
-interface Props {
-  professional: Professional;
-  loggedUser: Professional | null;
-  onEditProfile: (professional: Professional) => void;
-  onEditPhoto: (professional: Professional) => void;
-}
+export default function ProfessionalCardUsuario() {
+  const [professional, setProfessional] = useState<Professional | null>(null);
 
-export default function ProfessionalCardUsuario({
-  professional,
-  loggedUser,
-  onEditProfile,
-  onEditPhoto
-}: Props) {
+  // Carregar usuário logado
+  useEffect(() => {
+    const saved = localStorage.getItem("loggedUser");
+    if (saved) {
+      setProfessional(JSON.parse(saved));
+    }
+  }, []);
+
+  if (!professional) {
+    return <p>Carregando...</p>;
+  }
 
   const backendUrl = "https://vila-mel-backend.onrender.com";
 
-  const imageSrc =
-    professional.image
-      ? `${backendUrl}/uploads/${professional.image}`
-      : "/imagens/default.png";
+  const imageSrc = professional.image
+    ? `${backendUrl}/uploads/${professional.image}`
+    : "/imagens/default.png";
 
-  const isOwner = loggedUser && loggedUser.id === professional.id;
-  const canEdit = isOwner && professional.photoChanges < 3;
+  const handleEditProfile = async () => {
+    const name = prompt("Novo nome:", professional.name) || professional.name;
+    const profession = prompt("Nova profissão:", professional.profession) || professional.profession;
+    const phone = prompt("Novo telefone:", professional.phone) || professional.phone;
+    const gender = prompt("Novo gênero:", professional.gender) || professional.gender;
+
+    const res = await updateOwnProfile({
+      key: professional.key,
+      name,
+      profession,
+      phone,
+      gender
+    });
+
+    if (res.data.success) {
+      alert("Perfil atualizado!");
+      localStorage.setItem("loggedUser", JSON.stringify(res.data.professional));
+      setProfessional(res.data.professional);
+    }
+  };
+
+  const handleEditPhoto = async () => {
+    if (professional.photoChanges >= 3) {
+      alert("Você atingiu o limite de edições.");
+      return;
+    }
+
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = "image/*";
+
+    input.onchange = async () => {
+      const file = input.files?.[0];
+      if (!file) return;
+
+      const formData = new FormData();
+      formData.append("key", professional.key);
+      formData.append("image", file);
+
+      const res = await updatePhoto(formData);
+
+      if (res.data.success) {
+        alert("Foto atualizada!");
+        localStorage.setItem("loggedUser", JSON.stringify(res.data.professional));
+        setProfessional(res.data.professional);
+      }
+    };
+
+    input.click();
+  };
 
   return (
     <Card>
@@ -83,19 +133,14 @@ export default function ProfessionalCardUsuario({
       <Name>{professional.name}</Name>
       <Profession>{professional.profession}</Profession>
 
-      {canEdit && (
+      {professional.photoChanges < 3 ? (
         <>
-          <Button onClick={() => onEditProfile(professional)}>
-            Editar Perfil
-          </Button>
-
-          <Button onClick={() => onEditPhoto(professional)}>
+          <Button onClick={handleEditProfile}>Editar Perfil</Button>
+          <Button onClick={handleEditPhoto}>
             Trocar Foto ({professional.photoChanges}/3)
           </Button>
         </>
-      )}
-
-      {isOwner && professional.photoChanges >= 3 && (
+      ) : (
         <p style={{ color: "red", marginTop: 10 }}>
           Limite de edições atingido.
         </p>
