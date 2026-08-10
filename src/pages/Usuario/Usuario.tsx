@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { getProfessionalsAdmin, updateOwnProfile, updatePhoto } from "../../services/api";
+import { updateOwnProfile, updatePhoto } from "../../services/api";
 import { useNavigate } from "react-router-dom";
 import type { Professional } from "../../types/Professional";
 
@@ -50,7 +50,7 @@ const LoginButton = styled.button`
 export default function Usuario() {
   const navigate = useNavigate();
 
-  const [professionals, setProfessionals] = useState<Professional[]>([]);
+
   
   const [loggedUser, setLoggedUser] = useState<Professional | null>(null);
 
@@ -60,13 +60,6 @@ export default function Usuario() {
     if (saved) {
       setLoggedUser(JSON.parse(saved));
     }
-  }, []);
-
-  // Carregar todos os profissionais
-  useEffect(() => {
-    getProfessionalsAdmin().then(res => {
-      setProfessionals(res.data);
-    });
   }, []);
 
   const handleEditProfile = async (professional: any) => {
@@ -144,15 +137,15 @@ export default function Usuario() {
       )}
 
       <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20 }}>
-        {professionals.map(p => (
-          <ProfessionalCardUsuario
-            key={p.id}
-            professional={p}
-            loggedUser={loggedUser}
-            onEditProfile={handleEditProfile}
-            onEditPhoto={handleEditPhoto}
-          />
-        ))}
+        {loggedUser && (
+            <ProfessionalCardUsuario
+              professional={loggedUser}
+              loggedUser={loggedUser}
+              onEditProfile={handleEditProfile}
+              onEditPhoto={handleEditPhoto}
+            />
+          )}
+
       </div>
 
     </Container>
