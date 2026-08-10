@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { updateOwnProfile, updatePhoto } from "../../services/api";
 import { useNavigate } from "react-router-dom";
 import type { Professional } from "../../types/Professional";
 
@@ -58,7 +59,56 @@ export default function Usuario() {
     }
   }, []);
 
+  const handleEditProfile = async (professional: Professional) => {
+    const name = prompt("Novo nome:", professional.name) || professional.name;
+    const profession = prompt("Nova profissão:", professional.profession) || professional.profession;
+    const phone = prompt("Novo telefone:", professional.phone) || professional.phone;
+    const gender = prompt("Novo gênero:", professional.gender) || professional.gender;
 
+    const res = await updateOwnProfile({
+      key: professional.key,
+      name,
+      profession,
+      phone,
+      gender
+    });
+
+    if (res.data.success) {
+      alert("Perfil atualizado!");
+      localStorage.setItem("loggedUser", JSON.stringify(res.data.professional));
+      setLoggedUser(res.data.professional);
+    }
+  };
+
+  const handleEditPhoto = async (professional: Professional) => {
+    if (professional.photoChanges >= 3) {
+      alert("Você atingiu o limite de edições.");
+      return;
+    }
+
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = "image/*";
+
+    input.onchange = async () => {
+      const file = input.files?.[0];
+      if (!file) return;
+
+      const formData = new FormData();
+      formData.append("key", professional.key);
+      formData.append("image", file);
+
+      const res = await updatePhoto(formData);
+
+      if (res.data.success) {
+        alert("Foto atualizada!");
+        localStorage.setItem("loggedUser", JSON.stringify(res.data.professional));
+        setLoggedUser(res.data.professional);
+      }
+    };
+
+    input.click();
+  };
 
   return (
     <Container>
@@ -86,7 +136,12 @@ export default function Usuario() {
       {/* Exibir SOMENTE o usuário logado */}
       {loggedUser && (
         <div style={{ marginTop: 30 }}>
-          <ProfessionalCardUsuario  />
+          <ProfessionalCardUsuario
+            professional={loggedUser}
+            loggedUser={loggedUser}
+            onEditProfile={handleEditProfile}
+            onEditPhoto={handleEditPhoto}
+          />
         </div>
       )}
     </Container>
