@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { updateOwnProfile, updatePhoto } from "../../services/api";
 import { useNavigate } from "react-router-dom";
 import type { Professional } from "../../types/Professional";
-import ProfessionalCard from "../../components/ProfessionalCard/ProfessionalCard";
 import ProfessionalCardUsuario from "../../components/ProfessionalCardUsuario/ProfessionalCardUsuario";
 
 const Container = styled.div`
@@ -145,13 +144,6 @@ export default function Usuario() {
           />
 
         </div> 
-      )}
-      {loggedUser && (
-        <div>
-          <ProfessionalCard 
-            professional={loggedUser}
-          />
-        </div>
       )}
     </Container>
   );
