@@ -84,7 +84,7 @@ interface Props {
 
 export default function ProfessionalCard({ professional }: Props) {
 
-  const [loggedUser, setLoggedUser] = useState(null);
+  const [loggedUser, setLoggedUser] = useState<Professional | null>(null);
 
     useEffect(() => {
       const saved = localStorage.getItem("loggedUser");
@@ -93,7 +93,8 @@ export default function ProfessionalCard({ professional }: Props) {
       }
     }, []);
 
-  const isLoggedUser = loggedUser && loggedUser === professional.id;
+  const isLoggedUser = loggedUser && loggedUser.id === professional.id;
+
 
   const backendUrl = "https://vila-mel-backend.onrender.com"
 
