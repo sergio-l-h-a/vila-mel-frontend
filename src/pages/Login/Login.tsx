@@ -48,46 +48,40 @@ const Button = styled.button`
 
 export default function Login() {
   const navigate = useNavigate();
+  const { login } = useAuth();   // <-- TEM QUE FICAR AQUI
   const [key, setKey] = useState("");
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
-   let res;
+    let res;
 
     try {
-        res = await api.post("/professionals/login", { key });
+      res = await api.post("/professionals/login", { key });
 
-        if (res.data.authorized) {
-            const { login } = useAuth();
-            login(res.data.professional);
+      if (res.data.authorized) {
+        login(res.data.professional);   // <-- AGORA FUNCIONA
 
-            alert("Login realizado com sucesso!");
-            navigate("/usuario");
-            return;
-        }
+        alert("Login realizado com sucesso!");
+        navigate("/usuario");
+        return;
+      }
     } catch (e) {
-        // ignorar erro, tentar admin
+      // ignorar erro, tentar admin
     }
 
-
     try {
-    // tentar login como administrador
-    res = await api.post("/admin/login", { key });
+      res = await api.post("/admin/login", { key });
 
-    if (res.data.authorized) {
+      if (res.data.authorized) {
         alert("Administrador autenticado!");
         localStorage.setItem("admin", JSON.stringify({ key }));
         navigate("/admin");
         return;
-    }
-    } catch (e) {
-    // ignorar erro
-    }
+      }
+    } catch (e) {}
 
     alert("Chave inválida.");
-
-
   };
 
   return (
