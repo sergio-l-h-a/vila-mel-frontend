@@ -117,13 +117,6 @@ export default function ProfessionalCard({ professional }: Props) {
       <Name>{professional.name}</Name>
       <Profession>{professional.profession}</Profession>
 
-      <WhatsAppButton
-        href={`https://wa.me/55${professional.phone}`}
-        target="_blank"
-      >
-        <img src="/comercios/whatsapp.svg" alt="WhatsApp" />
-        Chamar no WhatsApp
-      </WhatsAppButton>
 
       {isLoggedUser ? (
           <button
@@ -133,14 +126,14 @@ export default function ProfessionalCard({ professional }: Props) {
             Editar
           </button>
         ) : (
-          <a
-            className="whatsapp-btn"
+          <WhatsAppButton
             href={`https://wa.me/55${professional.phone}`}
             target="_blank"
-            rel="noopener noreferrer"
           >
+            <img src="/comercios/whatsapp.svg" alt="WhatsApp" />
             Chamar no WhatsApp
-          </a>
+          </WhatsAppButton>
+          
         )}
 
     </Card>
