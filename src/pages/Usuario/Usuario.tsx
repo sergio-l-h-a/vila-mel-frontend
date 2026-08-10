@@ -119,7 +119,8 @@ export default function Usuario() {
           onClick={() => {
             localStorage.removeItem("loggedUser");
             setLoggedUser(null);
-            alert("Você saiu da sua conta.");
+            //alert("Você saiu da sua conta.");
+            navigate("/");
           }}
         >
           Sair
