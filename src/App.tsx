@@ -8,6 +8,7 @@ import Admin from "./pages/Admin/Admin";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import { GlobalStyle } from "./styles/global";
+import Usuario from "./pages/Usuario/Usuario";
 
 export default function App() {
   return (
@@ -21,6 +22,7 @@ export default function App() {
         <Route path="/contato" element={<Contato />} />
         <Route path="/cadastrar" element={<Cadastrar />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/usuario" element={<Usuario />} />
         <Route path="/admin" element={<Admin />} />
       </Routes>
       <Footer />
