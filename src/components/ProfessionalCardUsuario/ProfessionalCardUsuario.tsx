@@ -1,105 +1,50 @@
-import styled from "styled-components";
-import type { Professional } from "../../types/Professional";
+import { useEffect, useState } from "react";
 
-const Card = styled.div`
-  padding: 20px;
-  margin-top: 20px;
-  border-radius: 12px;
-  background: #fff;
-  box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
-  text-align: center;
-`;
+const ProfessionalCardUsuario = () => {
+  const [loggedUser, setLoggedUser] = useState<any>(null);
 
-const Name = styled.h2`
-  font-size: 22px;
-  font-weight: bold;
-`;
+  // Carregar usuário logado
+  useEffect(() => {
+    const saved = localStorage.getItem("loggedUser");
+    if (saved) {
+      setLoggedUser(JSON.parse(saved));
+    }
+  }, []);
 
-const Profession = styled.p`
-  color: #666;
-  margin-top: 8px;
-`;
-
-const Button = styled.button`
-  padding: 10px 16px;
-  background: #0984e3;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  margin-top: 10px;
-  cursor: pointer;
-
-  &:hover {
-    background: #74b9ff;
+  if (!loggedUser) {
+    return <p>Carregando...</p>;
   }
-`;
-
-const Avatar = styled.div<{ gender: "male" | "female" }>`
-  width: 90px;
-  height: 90px;
-  border-radius: 50%;
-  background: ${({ gender }) =>
-    gender === "male" ? "#4092f0" : "#ec779e"};
-  margin: 0 auto 12px auto;  
-`;
-
-const AvatarImage = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 50%;
-`;
-
-interface Props {
-  professional: Professional;
-  loggedUser: Professional | null;
-  onEditProfile: (professional: Professional) => void;
-  onEditPhoto: (professional: Professional) => void;
-}
-
-export default function ProfessionalCardUsuario({
-  professional,
-  loggedUser,
-  onEditProfile,
-  onEditPhoto
-}: Props) {
-
-  const backendUrl = "https://vila-mel-backend.onrender.com";
-
-  const imageSrc =
-    professional.image
-      ? `${backendUrl}/uploads/${professional.image}`
-      : "/imagens/default.png";
-
-  const isOwner = loggedUser && loggedUser.id === professional.id;
-  const canEdit = isOwner && professional.photoChanges < 3;
 
   return (
-    <Card>
-      <Avatar gender={professional.gender}>
-        <AvatarImage src={imageSrc} alt={professional.name} />
-      </Avatar>
+    <div className="usuario-card">
+      <img
+        src={loggedUser.image}
+        alt={loggedUser.name}
+        className="usuario-card-image"
+      />
 
-      <Name>{professional.name}</Name>
-      <Profession>{professional.profession}</Profession>
+      <h3>{loggedUser.name}</h3>
+      <p>{loggedUser.profession}</p>
+      <p>{loggedUser.phone}</p>
+      <p>{loggedUser.gender}</p>
 
-      {canEdit && (
-        <>
-          <Button onClick={() => onEditProfile(professional)}>
-            Editar Perfil
-          </Button>
+      <div className="usuario-actions">
+        <button
+          className="editar-dados-btn"
+          onClick={() => console.log("Abrir edição de dados")}
+        >
+          Editar Dados
+        </button>
 
-          <Button onClick={() => onEditPhoto(professional)}>
-            Trocar Foto ({professional.photoChanges}/3)
-          </Button>
-        </>
-      )}
-
-      {isOwner && professional.photoChanges >= 3 && (
-        <p style={{ color: "red", marginTop: 10 }}>
-          Limite de edições atingido.
-        </p>
-      )}
-    </Card>
+        <button
+          className="editar-foto-btn"
+          onClick={() => console.log("Abrir edição de foto")}
+        >
+          Trocar Foto
+        </button>
+      </div>
+    </div>
   );
-}
+};
+
+export default ProfessionalCardUsuario;
