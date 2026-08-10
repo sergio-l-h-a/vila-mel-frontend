@@ -81,7 +81,7 @@ export default function Header() {
 
 
       <UserInfo>
-      {user?.name && <span>Olá, {user.name}!</span>}
+      {user && <span>Olá, {user.name}!</span>}
 
       </UserInfo>
       <LogoutButton>
