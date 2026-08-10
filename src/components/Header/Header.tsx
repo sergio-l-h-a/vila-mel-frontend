@@ -50,11 +50,17 @@ export default function Header() {
   const [loggedUser, setLoggedUser] = useState<Professional | null>(null);
 
   useEffect(() => {
-    const saved = localStorage.getItem("loggedUser");
-    if (saved) {
-      setLoggedUser(JSON.parse(saved));
-    }
+    const updateUser = () => {
+      const saved = localStorage.getItem("loggedUser");
+      setLoggedUser(saved ? JSON.parse(saved) : null);
+    };
+
+    updateUser(); // carregar na primeira vez
+
+    window.addEventListener("storage", updateUser);
+    return () => window.removeEventListener("storage", updateUser);
   }, []);
+
 
   const logout = () => {
     localStorage.removeItem("loggedUser");
