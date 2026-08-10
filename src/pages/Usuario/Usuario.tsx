@@ -32,7 +32,6 @@ const LogoutButton = styled.button`
   }
 `;
 
-
 const LoginButton = styled.button`
   padding: 12px;
   background: #0984e3;
@@ -50,8 +49,6 @@ const LoginButton = styled.button`
 export default function Usuario() {
   const navigate = useNavigate();
 
-
-  
   const [loggedUser, setLoggedUser] = useState<Professional | null>(null);
 
   // Carregar usuário logado
@@ -62,7 +59,7 @@ export default function Usuario() {
     }
   }, []);
 
-  const handleEditProfile = async (professional: any) => {
+  const handleEditProfile = async (professional: Professional) => {
     const name = prompt("Novo nome:", professional.name) || professional.name;
     const profession = prompt("Nova profissão:", professional.profession) || professional.profession;
     const phone = prompt("Novo telefone:", professional.phone) || professional.phone;
@@ -83,7 +80,7 @@ export default function Usuario() {
     }
   };
 
-  const handleEditPhoto = async (professional: any) => {
+  const handleEditPhoto = async (professional: Professional) => {
     if (professional.photoChanges >= 3) {
       alert("Você atingiu o limite de edições.");
       return;
@@ -129,25 +126,23 @@ export default function Usuario() {
         </LogoutButton>
       )}
 
-
       {!loggedUser && (
         <LoginButton onClick={() => navigate("/login")}>
           Fazer Login
         </LoginButton>
       )}
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20 }}>
-        {loggedUser && (
-            <ProfessionalCardUsuario
-              professional={loggedUser}
-              loggedUser={loggedUser}
-              onEditProfile={handleEditProfile}
-              onEditPhoto={handleEditPhoto}
-            />
-          )}
-
-      </div>
-
+      {/* Exibir SOMENTE o usuário logado */}
+      {loggedUser && (
+        <div style={{ marginTop: 30 }}>
+          <ProfessionalCardUsuario
+            professional={loggedUser}
+            loggedUser={loggedUser}
+            onEditProfile={handleEditProfile}
+            onEditPhoto={handleEditPhoto}
+          />
+        </div>
+      )}
     </Container>
   );
 }
