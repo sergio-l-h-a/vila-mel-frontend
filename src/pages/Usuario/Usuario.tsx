@@ -58,15 +58,14 @@ export default function Usuario() {
       setLoggedUser(JSON.parse(saved));
     }
   }, []);
-
-  const isLoggedUser = loggedUser && loggedUser.id;
   
+
   const handleEditProfile = async (professional: Professional) => {
+    const name = prompt("Novo nome:", professional.name) || professional.name;
     const profession = prompt("Nova profissão:", professional.profession) || professional.profession;
     const phone = prompt("Novo telefone:", professional.phone) || professional.phone;
     const gender = prompt("Novo gênero:", professional.gender) || professional.gender;
-    const name = prompt("Novo nome:", professional.name) || professional.name;
-    
+
     const res = await updateOwnProfile({
       key: professional.key,
       name,
@@ -74,7 +73,7 @@ export default function Usuario() {
       phone,
       gender
     });
-    
+
     if (res.data.success) {
       alert("Perfil atualizado!");
       localStorage.setItem("loggedUser", JSON.stringify(res.data.professional));
@@ -136,7 +135,7 @@ export default function Usuario() {
       )}
 
       {/* Exibir SOMENTE o usuário logado */}
-      {isLoggedUser && (
+      {loggedUser && (
         <div style={{ marginTop: 30 }}>
           <ProfessionalCardUsuario
             professional={loggedUser}

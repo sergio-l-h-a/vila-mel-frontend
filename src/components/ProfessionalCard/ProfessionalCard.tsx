@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import type { Professional } from "../../types/Professional";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Card = styled.div`
   padding: 20px;
@@ -82,14 +84,26 @@ interface Props {
 
 export default function ProfessionalCard({ professional }: Props) {
 
+  const [loggedUser, setLoggedUser] = useState(null);
+
+    useEffect(() => {
+      const saved = localStorage.getItem("loggedUser");
+      if (saved) {
+        setLoggedUser(JSON.parse(saved));
+      }
+    }, []);
+
+  const isLoggedUser = loggedUser && loggedUser === professional.id;
+
   const backendUrl = "https://vila-mel-backend.onrender.com"
 
    const imageSrc =
-  professional.image
+    professional.image
     ? `${backendUrl}/uploads/${professional.image}`
     : professionImages[professional.profession]?.[0] ||
       "/imagens/default.png";
 
+    const navigate = useNavigate();
 
   return (
     <Card>
@@ -110,6 +124,25 @@ export default function ProfessionalCard({ professional }: Props) {
         <img src="/comercios/whatsapp.svg" alt="WhatsApp" />
         Chamar no WhatsApp
       </WhatsAppButton>
+
+      {isLoggedUser ? (
+          <button
+            className="editar-btn"
+            onClick={() => navigate("/usuario")}
+          >
+            Editar
+          </button>
+        ) : (
+          <a
+            className="whatsapp-btn"
+            href={`https://wa.me/55${professional.phone}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Chamar no WhatsApp
+          </a>
+        )}
+
     </Card>
   );
 }
