@@ -1,7 +1,5 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { useEffect, useState } from "react";
-import type { Professional } from "../../types/Professional";
 import { useAuth } from "../../context/AuthContext";
 
 const Nav = styled.nav`
@@ -48,24 +46,7 @@ const LogoutButton = styled.button`
 `;
 
 export default function Header() {
-  const [loggedUser, setLoggedUser] = useState<Professional | null>(null);
-
   const { user, logout } = useAuth();
-
-  useEffect(() => {
-    const updateUser = () => {
-      const saved = localStorage.getItem("loggedUser");
-      setLoggedUser(saved ? JSON.parse(saved) : null);
-    };
-
-    updateUser(); // carregar na primeira vez
-
-    window.addEventListener("storage", updateUser);
-    return () => window.removeEventListener("storage", updateUser);
-  }, []);
-
-
-  
 
   return (
     <Nav>
@@ -75,18 +56,19 @@ export default function Header() {
         <Link to="/contato">Contato</Link>
         <Link to="/cadastrar">Cadastrar</Link>
 
-        {!loggedUser && <Link to="/login">Login</Link>}
-        {loggedUser && <Link to="/usuario">Área do Usuário</Link>}
+        {!user && <Link to="/login">Login</Link>}
+        {user && <Link to="/usuario">Área do Usuário</Link>}
       </Menu>
 
-
       <UserInfo>
-      {user && <span>Olá, {user.name}!</span>}
-
+        {user && <span>Olá, {user.name}!</span>}
       </UserInfo>
-      <LogoutButton>
-        <button onClick={logout}>Sair</button>
-      </LogoutButton>
+
+      {user && (
+        <LogoutButton onClick={logout}>
+          Sair
+        </LogoutButton>
+      )}
     </Nav>
   );
 }
