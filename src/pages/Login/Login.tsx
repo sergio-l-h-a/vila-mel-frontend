@@ -2,6 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import { api } from "../../services/api";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 
 const Container = styled.div`
   max-width: 500px;
@@ -52,21 +53,23 @@ export default function Login() {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
-    let res;
+   let res;
 
     try {
-    // tentar login como profissional
-    res = await api.post("/professionals/login", { key });
+        res = await api.post("/professionals/login", { key });
 
-    if (res.data.authorized) {
-        localStorage.setItem("loggedUser", JSON.stringify(res.data.professional));
-        alert("Login realizado com sucesso!");
-        navigate("/usuario");
-        return;
-    }
+        if (res.data.authorized) {
+            const { login } = useAuth();
+            login(res.data.professional);
+
+            alert("Login realizado com sucesso!");
+            navigate("/usuario");
+            return;
+        }
     } catch (e) {
-    // ignorar erro, tentar admin
+        // ignorar erro, tentar admin
     }
+
 
     try {
     // tentar login como administrador
