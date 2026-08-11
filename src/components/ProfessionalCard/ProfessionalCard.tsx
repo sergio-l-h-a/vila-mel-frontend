@@ -120,12 +120,14 @@ export default function ProfessionalCard({ professional }: Props) {
 
 
       {isLoggedUser ? (
+        <WhatsAppButton>
           <button
             className="editar-btn"
             onClick={() => navigate("/usuario")}
           >
             Editar
           </button>
+        </WhatsAppButton>
         ) : (
           <WhatsAppButton
             href={`https://wa.me/55${professional.phone}`}
