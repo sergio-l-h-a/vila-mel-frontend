@@ -7,6 +7,8 @@ export interface Professional {
   phone: string;
   "gender": "male" | "female";
   image?: string;
+  key: string;
+  role: "user" | "admin";
 }
 
 

@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import Sobre from "./pages/Sobre/Sobre";
 import Contato from "./pages/Contato/Contato";
@@ -9,8 +9,11 @@ import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import { GlobalStyle } from "./styles/global";
 import Usuario from "./pages/Usuario/Usuario";
+import { useAuth } from "./context/AuthContext";
+
 
 export default function App() {
+  const { user } = useAuth();
   return (
     <BrowserRouter>
       <GlobalStyle />
@@ -20,7 +23,10 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/sobre" element={<Sobre />} />
         <Route path="/contato" element={<Contato />} />
-        <Route path="/cadastrar" element={<Cadastrar />} />
+
+        <Route path="/cadastrar" 
+        element={user?.role === "admin" ? <Cadastrar /> : <Navigate to="/" />} 
+        />
         <Route path="/login" element={<Login />} />
         <Route path="/usuario" element={<Usuario />} />
         <Route path="/admin" element={<Admin />} />
