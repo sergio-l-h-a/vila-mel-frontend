@@ -1,14 +1,15 @@
 export interface Professional {
-  [x: string]: any;
-  localizacao: string | undefined;
   id: number;
   name: string;
   profession: string;
   phone: string;
-  "gender": "male" | "female";
   image?: string;
+  gender: "male" | "female";
   key: string;
   role: "user" | "admin";
+  localizacao?: string;
+  photoChanges: number;
 }
+
 
 
