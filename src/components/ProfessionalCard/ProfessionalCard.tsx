@@ -123,7 +123,7 @@ export default function ProfessionalCard({ professional }: Props) {
         <WhatsAppButton>
           <button
             className="editar-btn"
-            onClick={() => navigate("/usuario")}
+            onClick={() => navigate("/editar")}
           >
             Editar
           </button>

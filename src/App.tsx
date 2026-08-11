@@ -10,6 +10,7 @@ import Footer from "./components/Footer/Footer";
 import { GlobalStyle } from "./styles/global";
 import Usuario from "./pages/Usuario/Usuario";
 import { useAuth } from "./context/AuthContext";
+import Editar from "./pages/Editar/Editar";
 
 
 export default function App() {
@@ -29,6 +30,7 @@ export default function App() {
         />
         <Route path="/login" element={<Login />} />
         <Route path="/usuario" element={<Usuario />} />
+        <Route path="/editar" element={<Editar />} />
         <Route path="/admin" element={<Admin />} />
       </Routes>
       <Footer />
