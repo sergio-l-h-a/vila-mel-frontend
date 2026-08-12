@@ -26,7 +26,7 @@ export default function App() {
         <Route path="/contato" element={<Contato />} />
 
         <Route path="/cadastrar" 
-        element={user?.role === "admin" ? <Cadastrar /> : <Navigate to="/" />} 
+        element={user?.role === "admin" ? <Cadastrar /> : <Navigate to="/cadastrar" />} 
         />
         <Route path="/login" element={<Login />} />
         <Route path="/usuario" element={<Usuario />} />
