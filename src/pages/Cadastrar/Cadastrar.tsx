@@ -170,7 +170,10 @@ export default function Cadastrar() {
           <option value="Masculino">Masculino</option>
           <option value="Feminino">Feminino</option>
         </Select>
-        <p>Sua chave de acesso: <strong>{form.key}</strong></p>
+        <p style={{ fontWeight: "bold", fontSize: "18px" }}>
+          Sua chave de acesso: {form.key}
+        </p>
+
 
         <Button type="submit">Cadastrar</Button>
       </Form>
