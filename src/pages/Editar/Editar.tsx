@@ -1,6 +1,7 @@
 import { useAuth } from "../../context/AuthContext";
 import styled from "styled-components";
 
+
 const Container = styled.div`
   max-width: 500px;
   margin: 40px auto;
@@ -48,36 +49,31 @@ type EditFormData = {
 
 
 export default function Editar() {
-  const { user} = useAuth();
+  const { user } = useAuth();
 
-  const handleSave = () => {
-
-
-
-
+  const handleSave = async () => {
     const updated: EditFormData = {
-    name: (document.getElementById("name") as HTMLInputElement).value,
-    profession: (document.getElementById("profession") as HTMLInputElement).value,
-    phone: (document.getElementById("phone") as HTMLInputElement).value
+      name: (document.getElementById("name") as HTMLInputElement).value,
+      profession: (document.getElementById("profession") as HTMLInputElement).value,
+      phone: (document.getElementById("phone") as HTMLInputElement).value
     };
 
+    if(!user) return null;
+    // Aqui criamos o corpo da requisição sem usar EditFormData
     const body = {
-      key: user?.key,
-      ...updated
+      key: user.key,   // ESSENCIAL
+      ...updated       // Campos editáveis
     };
 
-
-
-
-     fetch("professionals/update", {
+    await fetch("https://vila-mel-backend.onrender.com/professionals/update", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body)
     });
 
-
     alert("Dados atualizados!");
   };
+
 
   return (
     <Container>
