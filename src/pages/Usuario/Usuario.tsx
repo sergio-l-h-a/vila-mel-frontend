@@ -15,21 +15,6 @@ const Title = styled.h1`
   margin-bottom: 20px;
 `;
 
-const LogoutButton = styled.button`
-  padding: 12px;
-  background: #d63031;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  cursor: pointer;
-  margin-left: 10px;
-
-  &:hover {
-    background: #e17055;
-  }
-`;
-
 const LoginButton = styled.button`
   padding: 12px;
   background: #0984e3;
@@ -62,19 +47,6 @@ export default function Usuario() {
   return (
     <Container>
       <Title>Área do Usuário</Title>
-
-      {loggedUser && (
-        <LogoutButton
-          onClick={() => {
-            localStorage.removeItem("loggedUser");
-            setLoggedUser(null);
-            //alert("Você saiu da sua conta.");
-            navigate("/");
-          }}
-        >
-          Sair
-        </LogoutButton>
-      )}
 
       {!loggedUser && (
         <LoginButton onClick={() => navigate("/login")}>
