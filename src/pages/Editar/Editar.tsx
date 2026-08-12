@@ -49,7 +49,7 @@ type EditFormData = {
 
 
 export default function Editar() {
-  const { user } = useAuth();
+  const { user, login } = useAuth();
 
   const handleSave = async () => {
     const updated: EditFormData = {
@@ -72,6 +72,18 @@ export default function Editar() {
     });
 
     alert("Dados atualizados!");
+
+    // ATUALIZAR ÁREA DO USUÁRIO
+    login({
+      ...user,
+      ...updated
+    });
+
+    // LIMPAR CAMPOS
+    (document.getElementById("name") as HTMLInputElement).value = "";
+    (document.getElementById("profession") as HTMLInputElement).value = "";
+    (document.getElementById("phone") as HTMLInputElement).value = "";
+
   };
 
 
