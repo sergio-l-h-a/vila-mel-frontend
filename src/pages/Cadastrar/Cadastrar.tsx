@@ -101,7 +101,7 @@ export default function Cadastrar() {
     data.append("phone", form.phone);
     data.append("gender", form.gender);
     data.append("key", form.key);
-    await api.post("/professionals", data);
+
 
     if (imageFile) {
       data.append("image", imageFile);
