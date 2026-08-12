@@ -55,7 +55,7 @@ export default function Header() {
         <Link to="/sobre">Sobre</Link>
         <Link to="/contato">Contato</Link>
 
-        user? && <Link to="/cadastrar">Cadastrar</Link>
+        {user?.role !== "admin" && <Link to="/cadastrar">Cadastrar</Link>}
         {!user && <Link to="/login">Login</Link>}
         {user && <Link to="/usuario">Área do Usuário</Link>}
       </Menu>
