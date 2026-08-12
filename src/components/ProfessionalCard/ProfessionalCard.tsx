@@ -33,7 +33,7 @@ const WhatsAppButton = styled.a`
   font-weight: bold;
   text-decoration: none;
   transition: 0.3s;
-
+  cursor: pointer;
   &:hover {
     background: #27ae60;
     transform: translateY(-2px);
