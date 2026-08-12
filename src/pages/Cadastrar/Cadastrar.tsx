@@ -170,15 +170,7 @@ export default function Cadastrar() {
           <option value="Masculino">Masculino</option>
           <option value="Feminino">Feminino</option>
         </Select>
-
-        {/* Campo novo: key */}
-        <Input
-          name="key"
-          placeholder="Crie sua chave de acesso"
-          value={form.key}
-          onChange={handleChange}
-          
-        />
+        <p>Sua chave de acesso: <strong>{form.key}</strong></p>
 
         <Button type="submit">Cadastrar</Button>
       </Form>
