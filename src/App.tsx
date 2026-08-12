@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import Sobre from "./pages/Sobre/Sobre";
 import Contato from "./pages/Contato/Contato";
@@ -26,7 +26,7 @@ export default function App() {
         <Route path="/contato" element={<Contato />} />
 
         <Route path="/cadastrar" 
-        element={user?.role === "admin" ? <Cadastrar /> : <Navigate to="/cadastrar" />} 
+        element={!user && <Cadastrar /> } 
         />
         <Route path="/login" element={<Login />} />
         <Route path="/usuario" element={<Usuario />} />
