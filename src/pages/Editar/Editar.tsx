@@ -48,11 +48,11 @@ type EditFormData = {
 
 
 export default function Editar() {
-  const { user, login } = useAuth();
+  const { user} = useAuth();
 
   const handleSave = () => {
 
-    const storedUser = JSON.parse(localStorage.getItem("loggedUser") || "{}");
+
 
 
     const updated: EditFormData = {
@@ -61,15 +61,19 @@ export default function Editar() {
     phone: (document.getElementById("phone") as HTMLInputElement).value
     };
 
-
-    const finalUser = {
-    ...storedUser,
-    ...updated
+    const body = {
+      key: user?.key,
+      ...updated
     };
 
 
-    login(finalUser);
-    localStorage.setItem("loggedUser", JSON.stringify(finalUser));
+
+
+     fetch("professionals/update", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body)
+    });
 
 
     alert("Dados atualizados!");
