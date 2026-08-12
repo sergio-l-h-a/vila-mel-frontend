@@ -120,13 +120,13 @@ export default function ProfessionalCard({ professional }: Props) {
 
 
       {isLoggedUser ? (
-        <WhatsAppButton>
-          <button
+        <WhatsAppButton
+        
             className="editar-btn"
             onClick={() => navigate("/editar")}
           >
             Editar
-          </button>
+          
         </WhatsAppButton>
         ) : (
           <WhatsAppButton
