@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { api } from "../../services/api";
 import { useNavigate } from "react-router-dom";
@@ -53,6 +53,25 @@ const Button = styled.button`
 `;
 
 export default function Cadastrar() {
+  useEffect(() => {
+  const fetchKey = async () => {
+    try {
+      const response = await api.post("/generate-key");
+      const key = response.data.key;
+
+      setForm((prev: any) => ({
+        ...prev,
+        key: key
+      }));
+    } catch (error) {
+      alert("Não foi possível gerar sua chave. Seu IP pode estar bloqueado.");
+    }
+  };
+
+  fetchKey();
+}, []);
+
+
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
@@ -82,6 +101,7 @@ export default function Cadastrar() {
     data.append("phone", form.phone);
     data.append("gender", form.gender);
     data.append("key", form.key);
+    await api.post("/professionals", data);
 
     if (imageFile) {
       data.append("image", imageFile);
