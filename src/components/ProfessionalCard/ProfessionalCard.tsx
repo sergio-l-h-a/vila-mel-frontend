@@ -61,22 +61,18 @@ const AvatarImage = styled.img`
   border-radius: 50%;
 `;
 
-
-// 🔥 Agora com o nome correto da profissão do banco
+// 🔥 Agora com fallback REAL e seguro
 const professionImages: Record<string, string[]> = {
   Pedreiro: ["/imagens/pedreiro.png"],
   Manicure: ["/imagens/manicure.png"],
   Eletricista: ["/imagens/eletricista.png"],
   "Salão de Beleza": ["/imagens/salao-beleza.png"],
   Mecânico: ["/imagens/mecanico.png","/imagens/horlaneide.png"],
-  
   Barbeiro: ["/imagens/barbeiro.png"],
   Soldador: ["/imagens/soldador.png","/imagens/em-breve.png"],
   Confeiteira: ["/imagens/confeiteira.png"],
   Artesão: ["/imagens/artesao-couro.png"],
-
 };
-
 
 interface Props {
   professional: Professional;
@@ -86,59 +82,56 @@ export default function ProfessionalCard({ professional }: Props) {
 
   const [loggedUser, setLoggedUser] = useState<Professional | null>(null);
 
-    useEffect(() => {
-      const saved = localStorage.getItem("loggedUser");
-      if (saved) {
-        setLoggedUser(JSON.parse(saved));
-      }
-    }, []);
+  useEffect(() => {
+    const saved = localStorage.getItem("loggedUser");
+    if (saved) {
+      setLoggedUser(JSON.parse(saved));
+    }
+  }, []);
 
   const isLoggedUser = loggedUser && loggedUser.id === professional.id;
 
+  const navigate = useNavigate();
 
-  const backendUrl = "https://vila-mel-backend.onrender.com"
+  // 🔥 CORREÇÃO DEFINITIVA DO PROBLEMA DE IMAGEM
+  // Se tiver imagem do Cloudinary → usa ela
+  // Se NÃO tiver → usa imagem da profissão
+  // Se a profissão não tiver imagem → usa default.png
+  const backendUrl = "https://vila-mel-backend.onrender.com";
 
-   const imageSrc =
+  const imageSrc =
     professional.image
-    ? `${backendUrl}/uploads/${professional.image}`
-    : professionImages[professional.profession]?.[0] ||
-      "/imagens/default.png";
-
-    const navigate = useNavigate();
+      ? professional.image.startsWith("http")
+        ? professional.image // URL do Cloudinary
+        : `${backendUrl}/uploads/${professional.image}` // upload local
+      : professionImages[professional.profession]?.[0] ||
+        "/imagens/default.png";
 
   return (
     <Card>
       <Avatar gender={professional.gender}>
-        <AvatarImage
-          src={imageSrc}
-          alt={professional.name}
-        />
+        <AvatarImage src={imageSrc} alt={professional.name} />
       </Avatar>
 
       <Name>{professional.name}</Name>
       <Profession>{professional.profession}</Profession>
 
-
       {isLoggedUser ? (
         <WhatsAppButton
-        
-            className="editar-btn"
-            onClick={() => navigate("/editar")}
-          >
-            Editar
-          
+          className="editar-btn"
+          onClick={() => navigate("/editar")}
+        >
+          Editar
         </WhatsAppButton>
-        ) : (
-          <WhatsAppButton
-            href={`https://wa.me/55${professional.phone}`}
-            target="_blank"
-          >
-            <img src="/comercios/whatsapp.svg" alt="WhatsApp" />
-            Chamar no WhatsApp
-          </WhatsAppButton>
-          
-        )}
-
+      ) : (
+        <WhatsAppButton
+          href={`https://wa.me/55${professional.phone}`}
+          target="_blank"
+        >
+          <img src="/comercios/whatsapp.svg" alt="WhatsApp" />
+          Chamar no WhatsApp
+        </WhatsAppButton>
+      )}
     </Card>
   );
 }
