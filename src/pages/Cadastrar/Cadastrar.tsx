@@ -104,11 +104,7 @@ export default function Cadastrar() {
     }
 
     try {
-      await api.post("/professionals", data, {
-        headers: {
-          "Content-Type": "multipart/form-data"
-        }
-      });
+      await api.post("/professionals", data);
 
       alert("Cadastro realizado! Agora faça login com sua chave.");
 
