@@ -53,6 +53,17 @@ const Button = styled.button`
 `;
 
 export default function Cadastrar() {
+
+  const navigate = useNavigate();
+
+  const [form, setForm] = useState({
+    name: "",
+    profession: "",
+    phone: "",
+    gender: "Masculino",
+    key: ""
+  });
+
   useEffect(() => {
   const fetchKey = async () => {
     try {
@@ -70,17 +81,6 @@ export default function Cadastrar() {
 
   fetchKey();
 }, []);
-
-
-  const navigate = useNavigate();
-
-  const [form, setForm] = useState({
-    name: "",
-    profession: "",
-    phone: "",
-    gender: "Masculino",
-    key: ""
-  });
 
   const [imageFile, setImageFile] = useState<File | null>(null);
 
