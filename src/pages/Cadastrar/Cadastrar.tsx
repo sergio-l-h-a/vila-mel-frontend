@@ -88,9 +88,6 @@ export default function Cadastrar() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleImageChange = (e: any) => {
-    setImageFile(e.target.files[0]);
-  };
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -166,7 +163,7 @@ export default function Cadastrar() {
           type="file"
           name="image"
           accept="image/*"
-          onChange={handleImageChange}
+          onChange={(e) => setImageFile(e.target.files?.[0] || null)}
         />
 
         <Select name="gender" value={form.gender} onChange={handleChange}>
