@@ -93,42 +93,45 @@ export default function Cadastrar() {
   };
 
   const handleSubmit = async (e: any) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    const data = new FormData();
-    data.append("name", form.name);
-    data.append("profession", form.profession);
-    data.append("phone", form.phone);
-    data.append("gender", form.gender);
-    data.append("key", form.key);
+  const data = new FormData();
+  data.append("name", form.name);
+  data.append("profession", form.profession);
+  data.append("phone", form.phone);
+  data.append("gender", form.gender);
+  data.append("key", form.key);
 
+  if (imageFile) {
+    data.append("image", imageFile);
+  }
 
-    if (imageFile) {
-      data.append("image", imageFile);
-    }
-
-    try {
-        await api.post("/professionals", data); // sem headers
-
-        alert("Cadastro realizado! Agora faça login com sua chave.");
-
-        setForm({
-          name: "",
-          profession: "",
-          phone: "",
-          gender: "Masculino",
-          key: ""
-        });
-
-        setImageFile(null);
-
-        navigate("/login");
-
-      } catch (error) {
-        alert("Erro ao cadastrar profissional.");
+  try {
+    await api.post("/professionals", data, {
+      headers: {
+        "Content-Type": "multipart/form-data"
       }
+    });
 
-  };
+    alert("Cadastro realizado! Agora faça login com sua chave.");
+
+    setForm({
+      name: "",
+      profession: "",
+      phone: "",
+      gender: "Masculino",
+      key: ""
+    });
+
+    setImageFile(null);
+
+    navigate("/login");
+
+  } catch (error) {
+    alert("Erro ao cadastrar profissional.");
+  }
+};
+
 
   return (
     <Container>

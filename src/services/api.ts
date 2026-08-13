@@ -19,8 +19,13 @@ export const loginProfessional = async (key: string) => {
 };
 
 export const registerProfessional = async (formData: FormData) => {
-  return api.post("/professionals", formData);
+  return api.post("/professionals", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data"
+    }
+  });
 };
+
 
 
 export const loginAdmin = async (key: string) => {
@@ -33,7 +38,12 @@ export const updateOwnProfile = async (data: any) => {
 };
 
 export const updatePhoto = async (formData: FormData) => {
-  return api.put("/professionals/update-photo", formData);
+  return api.put("/professionals/update-photo", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data"
+    }
+  });
 };
+
 
 
