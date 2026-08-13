@@ -10,6 +10,10 @@ export const getProfessionalsAdmin = async () => {
   });
 };
 
+export const professional = async (key: string) => {
+  return api.post("/professionals", { key });
+};
+
 export const loginProfessional = async (key: string) => {
   return api.post("/professionals/login", { key });
 };
